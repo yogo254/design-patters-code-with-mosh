@@ -1,4 +1,7 @@
-import momento.Editor;
+import state.BrushTool;
+import state.Canvas;
+import state.EraserTool;
+import state.SelectionTool;
 
 /**
  * Main
@@ -6,12 +9,21 @@ import momento.Editor;
 public class Main {
 
 	public static void main(String[] args) {
-		var editor = new Editor();
-		editor.setContent("a");
-		editor.setContent("b");
-		editor.setContent("c");
-		editor.undo();
-		System.out.println(editor.getContent());
+		var canva = new Canvas();
+
+		canva.setCurrentTool(new EraserTool());
+		canva.mouseDown();
+		canva.mouseUp();
+		canva.setCurrentTool(new BrushTool());
+
+		canva.mouseDown();
+		canva.mouseUp();
+
+		canva.setCurrentTool(new SelectionTool());
+
+		canva.mouseDown();
+		canva.mouseUp();
+
 	}
 
 }
