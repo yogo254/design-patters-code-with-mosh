@@ -1,7 +1,8 @@
 package momento;
 
-public class Editor extends UnDo {
+public class Editor  {
 	private String content;
+	private StateHistory history = new EditorHistory();
 
 	public String getContent() {
 		return content;
@@ -9,20 +10,12 @@ public class Editor extends UnDo {
 
 	public void setContent(String content) {
 		this.content = content;
-		getHistory().push(content);
+		history.push(new EditorState(content));
 	}
 
-	@Override
 	public void undo() {
-
-		if (getHistory().isEmpty()) {
-			return;
-		}
-		getHistory().pop();
-		String lastState = getHistory().pop();
-		System.out.println("Undoing to " + lastState);
-		content = lastState;
-
+		history.pop();
+		content = history.pop().getContent();
 	}
 
 }
